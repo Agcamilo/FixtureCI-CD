@@ -24,7 +24,16 @@ jobs:
         run: npm install
 
       - name: Prueba Lint
-        run: npm run lint 
+        run: npm run lint
+
+      - name: Notificar WhatsApp
+        if: always()
+        run: |
+          curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
+            --data-urlencode "From=whatsapp:${{ secrets.TWILIO_WHATSAPP_FROM }}" \
+            --data-urlencode "To=whatsapp:${{ secrets.TWILIO_WHATSAPP_TO }}" \
+            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *LintTest* ${{ job.status }}" \
+            -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
 
   SmokeTest:
     runs-on: ubuntu-latest
@@ -45,6 +54,15 @@ jobs:
       - name: Prueba Smoke
         run: node src/smoke-groups.js
 
+      - name: Notificar WhatsApp
+        if: always()
+        run: |
+          curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
+            --data-urlencode "From=whatsapp:${{ secrets.TWILIO_WHATSAPP_FROM }}" \
+            --data-urlencode "To=whatsapp:${{ secrets.TWILIO_WHATSAPP_TO }}" \
+            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *SmokeTest* ${{ job.status }}" \
+            -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
+
   Build:
     runs-on: ubuntu-latest
     needs: SmokeTest
@@ -63,6 +81,15 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Notificar WhatsApp
+        if: always()
+        run: |
+          curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
+            --data-urlencode "From=whatsapp:${{ secrets.TWILIO_WHATSAPP_FROM }}" \
+            --data-urlencode "To=whatsapp:${{ secrets.TWILIO_WHATSAPP_TO }}" \
+            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *Build* ${{ job.status }}" \
+            -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
 
   Deploy:
     runs-on: ubuntu-latest
@@ -100,3 +127,12 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Notificar WhatsApp
+        if: always()
+        run: |
+          curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
+            --data-urlencode "From=whatsapp:${{ secrets.TWILIO_WHATSAPP_FROM }}" \
+            --data-urlencode "To=whatsapp:${{ secrets.TWILIO_WHATSAPP_TO }}" \
+            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *Deploy* ${{ job.status }}" \
+            -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
