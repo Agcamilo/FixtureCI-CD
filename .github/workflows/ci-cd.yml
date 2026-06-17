@@ -24,15 +24,19 @@ jobs:
         run: npm install
 
   Lint:
+    runs-on: ubuntu-latest
+    steps:
       - name: Prueba Lint
         run: npm run lint  
 
   SmokeTest:
-
+    runs-on: ubuntu-latest
+    steps:
       - name: Prueba Smoke 
         run:  node src/smoke-groups.js
 
   Build:
-
+    runs-on: ubuntu-latest
+    steps:
       - name: Build
         run: npm run build
