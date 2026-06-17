@@ -88,7 +88,7 @@ jobs:
           curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
             --data-urlencode "From=whatsapp:${{ secrets.TWILIO_WHATSAPP_FROM }}" \
             --data-urlencode "To=whatsapp:${{ secrets.TWILIO_WHATSAPP_TO }}" \
-            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *Build* ${{ job.status }}" \
+            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *Build* ${{ job.status }} 🚬🚬🚬" \
             -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
 
   Deploy:
@@ -134,5 +134,5 @@ jobs:
           curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
             --data-urlencode "From=whatsapp:${{ secrets.TWILIO_WHATSAPP_FROM }}" \
             --data-urlencode "To=whatsapp:${{ secrets.TWILIO_WHATSAPP_TO }}" \
-            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *Deploy* ${{ job.status }} - https://fixture-ci-cd.vercel.app/" \
+            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *Deploy* ${{ job.status }} ⬆️⬆️⬆️ - https://fixture-ci-cd.vercel.app/" \
             -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
