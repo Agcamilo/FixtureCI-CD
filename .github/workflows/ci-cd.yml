@@ -1,1 +1,33 @@
+name: CI/CD_IngenieriaYcalidad
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
+  workflow_dispatch:
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+      - uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Prueba Lint
+        run: npm run lint  
+
+      - name: Prueba Smoke 
+        run:  node src/smoke-groups.js
+
+      - name: Build
+        run: npm run build
