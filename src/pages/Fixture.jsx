@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import {
-  Box, Flex, Text, Input, Select, VStack, HStack, Badge, Divider
+  Box, Flex, Text, Input, Select, VStack, HStack
 } from '@chakra-ui/react';
 import { matches, PHASE_LABELS } from '../data/matches';
 import MatchCard from '../components/MatchCard';

@@ -1,6 +1,6 @@
-import { Box, Flex, Grid, Text, Heading, VStack, HStack, Badge } from '@chakra-ui/react';
+import { Box, Flex, Grid, Text, Heading, VStack, HStack } from '@chakra-ui/react';
 import Countdown from '../components/Countdown';
-import { argentinaMatches, matches, PHASE_LABELS } from '../data/matches';
+import { argentinaMatches } from '../data/matches';
 
 const MONTHS_ES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
 

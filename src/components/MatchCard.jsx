@@ -1,5 +1,4 @@
 import { Box, Flex, Text, Badge } from '@chakra-ui/react';
-import { PHASE_LABELS } from '../data/matches';
 
 const DAYS_ES = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
 const MONTHS_ES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
