@@ -9,4 +9,13 @@ export default defineConfig({
       strict: false,
     },
   },
+  optimizeDeps: {
+    include: [
+      '@chakra-ui/react',
+      '@emotion/react',
+      '@emotion/styled',
+      'framer-motion',
+      'react-router-dom',
+    ],
+  },
 })
