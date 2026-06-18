@@ -39,7 +39,7 @@ export const groups = [
     id: 'E',
     teams: [
       { name: 'Alemania', flag: '🇩🇪', code: 'GER' },
-      { name: 'Curazao', flag: '🇨🇼', code: 'CUW' },
+      { name: '', flag: '🇨🇼', code: 'CUW' },
       { name: 'Costa de Marfil', flag: '🇨🇮', code: 'CIV' },
       //{ name: 'Ecuador', flag: '🇪🇨', code: 'ECU' },
     ],

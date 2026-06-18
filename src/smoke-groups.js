@@ -16,12 +16,12 @@ function check(description, condition) {
 check('hay 12 grupos', groups.length === 12);
 
 for (const g of groups) {
-  check(`Grupo ${g.id}: tiene 4 equipos`, g.teams.length === 4);
+  check(`Grupo ${g.id}: prueba tiene 4 equipos`, g.teams.length === 4);
   check(`Grupo ${g.id}: ID válido (A-L)`, /^[A-L]$/.test(g.id));
   for (const t of g.teams) {
     const label = t.name || `(equipo sin nombre)`;
-    check(`Grupo ${g.id} - ${label}: tiene nombre`, !!t.name);
-    check(`Grupo ${g.id} - ${label}: tiene bandera`, !!t.flag);
+    check(`Grupo ${g.id} - ${label}: prueba tiene nombre`, !!t.name);
+    check(`Grupo ${g.id} - ${label}: prueba tiene bandera `, !!t.flag);
   }
 }
 
