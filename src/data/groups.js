@@ -41,7 +41,7 @@ export const groups = [
       { name: 'Alemania', flag: '🇩🇪', code: 'GER' },
       { name: 'Curazao', flag: '🇨🇼', code: 'CUW' },
       { name: 'Costa de Marfil', flag: '🇨🇮', code: 'CIV' },
-      { name: 'Ecuador', flag: '🇪🇨', code: 'ECU' },
+      //{ name: 'Ecuador', flag: '🇪🇨', code: 'ECU' },
     ],
   },
   {
