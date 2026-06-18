@@ -4,7 +4,7 @@ export const groups = [
     teams: [
       { name: 'México', flag: '🇲🇽', code: 'MEX' },
       { name: 'Sudáfrica', flag: '🇿🇦', code: 'RSA' },
-      { name: 'Corea del Sur', flag: '🇰🇷', code: 'KOR' },
+      //{ name: 'Corea del Sur', flag: '🇰🇷', code: 'KOR' },
       //{ name: 'Chequia', flag: '🇨🇿', code: 'CZE' },
     ],
   },
