@@ -32,7 +32,7 @@ jobs:
           curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
             --data-urlencode "From=whatsapp:${{ secrets.TWILIO_WHATSAPP_FROM }}" \
             --data-urlencode "To=whatsapp:${{ secrets.TWILIO_WHATSAPP_TO }}" \
-            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *LintTest* ${{ job.status }}" \
+            --data-urlencode "Body=${{ job.status == 'correcto' && '✅' || '❌' }} *LintTest* ${{ job.status }}" \
             -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
 
   SmokeTest:
@@ -70,7 +70,7 @@ jobs:
         run: |
           STATUS="${{ job.status }}"
           if [ "$STATUS" = "success" ]; then
-            BODY="✅ *SmokeTest* success"
+            BODY="✅ *SmokeTest* correcto 🚬🚬🚬"
           else
             DETAIL="${SMOKE_FAILURES:-sin detalle}"
             BODY="❌ *SmokeTest* failure"$'\n'"Fallos: ${DETAIL}"
@@ -106,7 +106,7 @@ jobs:
           curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
             --data-urlencode "From=whatsapp:${{ secrets.TWILIO_WHATSAPP_FROM }}" \
             --data-urlencode "To=whatsapp:${{ secrets.TWILIO_WHATSAPP_TO }}" \
-            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *Build* ${{ job.status }} 🚬🚬🚬" \
+            --data-urlencode "Body=${{ job.status == 'correcto' && '✅' || '❌' }} *Build* ${{ job.status }} " \
             -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
 
   Deploy:
@@ -152,5 +152,5 @@ jobs:
           curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
             --data-urlencode "From=whatsapp:${{ secrets.TWILIO_WHATSAPP_FROM }}" \
             --data-urlencode "To=whatsapp:${{ secrets.TWILIO_WHATSAPP_TO }}" \
-            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *Deploy* ${{ job.status }} ⬆️⬆️⬆️ - https://fixture-ci-cd.vercel.app/" \
+            --data-urlencode "Body=${{ job.status == 'correcto' && '✅' || '❌' }} *Deploy* ${{ job.status }} ⬆️⬆️⬆️ - https://fixture-ci-cd.vercel.app/" \
             -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
