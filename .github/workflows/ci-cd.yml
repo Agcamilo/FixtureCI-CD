@@ -52,15 +52,33 @@ jobs:
         run: npm install
 
       - name: Prueba Smoke
-        run: node src/smoke-groups.js
+        shell: bash
+        run: |
+          set -o pipefail
+          node src/smoke-groups.js 2>&1 | tee smoke-output.txt
+
+      - name: Extraer fallos
+        if: always()
+        run: |
+          FAILURES=$(grep '^FAIL:' smoke-output.txt 2>/dev/null | sed 's/^FAIL: //' | head -10 | tr '\n' '; ')
+          echo "SMOKE_FAILURES=${FAILURES}" >> $GITHUB_ENV
 
       - name: Notificar WhatsApp
         if: always()
+        env:
+          SMOKE_FAILURES: ${{ env.SMOKE_FAILURES }}
         run: |
+          STATUS="${{ job.status }}"
+          if [ "$STATUS" = "success" ]; then
+            BODY="✅ *SmokeTest* success"
+          else
+            DETAIL="${SMOKE_FAILURES:-sin detalle}"
+            BODY="❌ *SmokeTest* failure"$'\n'"Fallos: ${DETAIL}"
+          fi
           curl -X POST "https://api.twilio.com/2010-04-01/Accounts/${{ secrets.TWILIO_ACCOUNT_SID }}/Messages.json" \
             --data-urlencode "From=whatsapp:${{ secrets.TWILIO_WHATSAPP_FROM }}" \
             --data-urlencode "To=whatsapp:${{ secrets.TWILIO_WHATSAPP_TO }}" \
-            --data-urlencode "Body=${{ job.status == 'success' && '✅' || '❌' }} *SmokeTest* ${{ job.status }}" \
+            --data-urlencode "Body=${BODY}" \
             -u "${{ secrets.TWILIO_ACCOUNT_SID }}:${{ secrets.TWILIO_AUTH_TOKEN }}"
 
   Build:
